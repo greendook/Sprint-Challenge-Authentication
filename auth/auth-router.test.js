@@ -13,27 +13,6 @@ describe('server', () => {
         });
     });
   });
-  describe('post /register', () => {
-    it('fails when no info give', async () => {
-      await db('users').truncate();
-      request(server)
-        .post('/api/auth/register')
-        .then((res) => {
-          expect(res.status).toBe(500);
-        });
-    });
-    it('successfully adds a user to the db', async () => {
-      await request(server)
-        .post('/api/auth/register')
-        .send({ username: 'user', password: 'test' })
-        .then((res) => {
-          expect(res.status).toBe(201);
-        });
-
-      const inserted = await db('users');
-      expect(inserted).toHaveLength(1);
-    });
-  });
 
   describe('post /login', () => {
     it('sends back 200 on log in', async () => {
